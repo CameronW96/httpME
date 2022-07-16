@@ -2,8 +2,8 @@
 #define GLOBALS
 
 // Error page locations
-#define NOT_FOUND "C:\\Users\\mynam\\source\\repos\\httpMe\\httpMe\\404.htm"
-#define SERVER_ERROR "C:\\Users\\mynam\\source\\repos\\httpMe\\httpMe\\500.htm"
+#define NOT_FOUND "C:\\Users\\mynam\\source\\repos\\httpMe\\httpMe\\Error Pages\\404.htm"
+#define SERVER_ERROR "C:\\Users\\mynam\\source\\repos\\httpMe\\httpMe\\Error Pages\\500.htm"
 
 // Config settings
 const int MAX_REQ_SIZE = 8192;
