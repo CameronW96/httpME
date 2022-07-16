@@ -18,6 +18,9 @@
 *.vcxproj
 *.vcxproj.filters
 
+# Folders
+test_pub_folder/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
