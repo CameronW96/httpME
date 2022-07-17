@@ -31,7 +31,7 @@ class Header
 	friend class Response;
 public:
 	Header(std::string t_content_type, int t_content_length, std::string t_status, std::string t_last_modified, std::string t_server_version);
-	std::string get_header(bool t_keep_alive);
+	std::string get_header();
 
 private:
 	std::string get_UTC_date();

@@ -61,26 +61,11 @@ void HTTP_Connection::read_request()
 
 				if (sock.is_open())
 				{
-					run();
-				}
-
-				if (sock.is_open())
-				{
-					start();
+					process_request();
 				}
 			});
 					
 	}
-
-}
-
-void HTTP_Connection::run()
-{
-	process_request();
-
-	process_response();
-
-	send_response();
 
 }
 
@@ -117,28 +102,11 @@ void HTTP_Connection::process_request()
 			req_fields.emplace(kvp.first, kvp.second);
 		}
 
-		// check for keep-alive
-		if (KEEP_ALIVE_ENABLE)
-		{
-			keep_alive = false; // reset to false on each loop
-
-			std::vector<std::string> connection_request;
-			connection_request = req_fields.find("Connection")->second;
-
-			if (connection_request.size() > 0)
-			{
-				if (connection_request[0] == "keep-alive")
-				{
-					keep_alive = true;
-				}
-			}
-
-
-		}
-
 		Request new_request(http_version, req_type, req_path, req_fields, req_body);
 		request = new_request;
 	}
+
+	process_response();
 
 }
 
@@ -194,6 +162,7 @@ void HTTP_Connection::process_response()
 			response.send_file(SERVER_ERROR, "500");
 		}
 	}
+	send_response();
 }
 
 void HTTP_Connection::send_response()
@@ -231,10 +200,7 @@ void HTTP_Connection::send_response()
 
 				send_timer_ref.expires_at(std::chrono::steady_clock::time_point::max());
 			}
-		);
-		
-		
-
+		);		
 	}
 }
 

@@ -24,7 +24,7 @@ void Server::listen()
 				}
 				catch (asio::error_code e)
 				{
-					std::cout << e.message() << std::endl;
+					std::cerr << e.message() << std::endl;
 				}
 				std::cout << "Closing connection..." << std::endl;
 			}	

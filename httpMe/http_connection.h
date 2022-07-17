@@ -38,7 +38,6 @@ private:
 public:
 	Request request;
 	Response response;
-	bool keep_alive = false;
 
 private:
 	tcp::socket sock;
