@@ -24,8 +24,8 @@
 
 # Folders
 test_pub_folder/
-tindog/
-Debug/
+httpMe/tindog/
+httpMe/Debug/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
