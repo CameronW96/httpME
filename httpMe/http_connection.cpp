@@ -1,5 +1,6 @@
 #include "http_connection.h"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -7,6 +8,12 @@
 
 #include "globals.h"
 #include "route.h"
+
+std::string _DIRECTORY = std::filesystem::current_path().string();
+
+// Error page locations
+#define NOT_FOUND    _DIRECTORY + "\\Error Pages\\404.htm"
+#define SERVER_ERROR _DIRECTORY + "\\Error Pages\\500.htm"
 
 HTTP_Connection::HTTP_Connection(tcp::socket t_sock, Route& route, std::string& t_directory, asio::steady_timer& t_recv_timer, asio::steady_timer& t_send_timer) 
 	: sock(std::move(t_sock)), route_table(route), req_buf(MAX_REQ_SIZE), public_directory(t_directory), recv_timer_ref(t_recv_timer), send_timer_ref(t_send_timer)

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <algorithm>
-#include <filesystem>
 #include <functional>
 
 #include "asio.hpp"
