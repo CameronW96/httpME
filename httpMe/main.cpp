@@ -11,12 +11,16 @@ using namespace HPM;
 int main(int argc, char* argv[])
 {
 	HTTP http;
-	http.make_public("C:\\Users\\mynam\\OneDrive\\Documents\\Projects\\FS Tutorials\\bootstrap-tutorial\\tindog\\public");
+	std::string D = http.cwd();
+	http.make_public(D + "\\tindog\\public");
 
-	auto lambda = [](HTTP_Connection& con)
+	auto lambda = [&](HTTP_Connection& con)
 	{
-		con.response.send_file("C:\\Users\\mynam\\OneDrive\\Documents\\Projects\\FS Tutorials\\bootstrap-tutorial\\tindog\\index.html");
+		con.response.send_file(D + "\\tindog\\index.html");
 	};
+	
+	std::cout << http.cwd() << std::endl;
+	std::cout << D + "\\tindog\\public" << std::endl;
 
 	http.make_route("GET", "/", lambda);
 

@@ -16,37 +16,10 @@ Header::Header(std::string t_content_type, int t_content_length, std::string t_s
 {
 }
 
-std::string Header::get_header(bool t_keep_alive)
+std::string Header::get_header()
 {
 	std::string header = "";
 
-	if (t_keep_alive)
-	{
-
-		header += "HTTP/1.1 ";
-		header += status;
-		header += "\r\n";
-		header += "Date: ";
-		header += get_UTC_date();
-		header += "\r\n";
-		header += "Server: httpMe/" + server_version;
-		header += "\r\n";
-		header += "Keep-Alive: timout=" + std::to_string(RCV_TIMEOUT_SECONDS);
-		header += ", max=" + std::to_string(KEEP_ALIVE_MAX_CONNECTIONS);
-		header += "\r\n";
-		header += "Last-Modified: " + last_modified;
-		header += "\r\n";
-		header += "Content-Length: " + std::to_string(content_length);
-		header += "\r\n";
-		header += "Content-Type: " + content_type;
-		header += "\r\n";
-		header += "Connection: Closed";
-		header += "\r\n\r\n";
-
-		return header;
-	}
-	else
-	{
 		header += "HTTP/1.1 ";
 		header += status;
 		header += "\r\n";
@@ -65,7 +38,7 @@ std::string Header::get_header(bool t_keep_alive)
 		header += "\r\n\r\n";
 
 		return header;
-	}
+
 }
 
 std::string Header::get_UTC_date()
@@ -84,7 +57,7 @@ std::string Header::get_UTC_date()
 
 int Response::send_file(std::string t_file_path, std::string t_code)
 {
-	response_buf.clear(); // Avoid stacking multiple files in the buffer
+	response_buf.clear(); // Prevent stacking multiple files in the buffer
 
 	std::ifstream file(t_file_path, std::ios::binary);
 	if (file.is_open())
@@ -101,7 +74,7 @@ int Response::send_file(std::string t_file_path, std::string t_code)
 		Header header(get_MIME_type(t_file_path), data_size, status_codes.get_status(t_code), file_time_to_string(last_modified), std::string("0.1"));
 
 		std::stringstream resbuf;
-		resbuf << header.get_header(KEEP_ALIVE_ENABLE);
+		resbuf << header.get_header();
 		resbuf << file_data.str();
 
 		file_data.clear(); // reduce memory usage when sending large files
