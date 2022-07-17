@@ -10,10 +10,6 @@
 *.userosscache
 *.sln.docstates
 
-# HTML files
-*.html
-*.htm
-
 # txt files
 *.txt
 
